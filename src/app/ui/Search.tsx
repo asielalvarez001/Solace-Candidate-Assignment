@@ -1,43 +1,15 @@
 'use client';
-import { useState } from 'react';
 
 type SearchProps = {
-  onSearch: (searchTerm: string) => void;
-  onReset: () => void;
+  handleSubmit: React.FormEventHandler<HTMLFormElement>,
+  handleOnChange: React.ChangeEventHandler<HTMLInputElement>,
+  handleReset: React.MouseEventHandler<HTMLButtonElement>,
+  term: string,
+  searchTerm: string,
+  showTerm: boolean,
 };
 
-export const Search = ({ onSearch, onReset }: SearchProps) => {
-  const [term, setTerm] = useState<string>('');
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [showTerm, setShowTerm] = useState<boolean>(false);
-
-  const reset = () => {
-    setShowTerm(false);
-    setTerm('');
-    setSearchTerm('');
-    onReset();
-  };
-
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value;
-    setTerm(input);
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!term) {
-      reset();
-    } else {
-      onSearch(term);
-      setSearchTerm(term);
-      setShowTerm(true);
-    }
-  };
-
-  const handleReset = (e: React.MouseEvent<HTMLButtonElement>) => {
-    reset();
-  };
-
+export const Search = ({ handleSubmit, handleOnChange, handleReset, term, searchTerm, showTerm }: SearchProps) => {
   return (
     <div className="max-w-lg mx-auto p-4 flex flex-col">
       <div className="mb-4">
